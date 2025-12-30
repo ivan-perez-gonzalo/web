@@ -39,54 +39,70 @@ document.addEventListener('DOMContentLoaded', () => {
     highlightNavMenu(); // Llamar al cargar para resaltar la sección inicial
 
 
-    // === 2. LÓGICA DE LOS CONTADORES (PROPÓSITOS 2026) ===
+    // === 2. LÓGICA DE LOS CONTADORES CIRCULARES (PROPÓSITOS 2026) ===
 
     // Definición de los 10 propósitos
     const goals = [
-        { id: 'gym', title: '💪 Ir al Gimnasio', target: 200 },
-        { id: 'run', title: '🏃 Salir a Correr', target: 50 },
+        { id: 'gym', title: '💪 Gimnasio', target: 200 },
+        { id: 'run', title: '🏃 Correr', target: 50 },
         { id: 'books', title: '📚 Leer Libros', target: 12 },
-        { id: 'water', title: '💧 Beber 2L Agua', target: 365 },
+        { id: 'water', title: '💧 2L Agua', target: 365 },
         { id: 'meditate', title: '🧘 Meditar', target: 100 },
-        { id: 'code', title: '💻 Aprender Código', target: 150 },
-        { id: 'travel', title: '✈️ Viajes/Excursiones', target: 6 },
-        { id: 'savings', title: '💰 Ahorro Mensual', target: 12 },
+        { id: 'code', title: '💻 Código', target: 150 },
+        { id: 'travel', title: '✈️ Viajes', target: 6 },
+        { id: 'savings', title: '💰 Ahorro', target: 12 },
         { id: 'healthy', title: '🥗 Comer Sano', target: 250 },
-        { id: 'digital-detox', title: '📵 Desconexión Móvil', target: 300 }
+        { id: 'digital-detox', title: '📵 Desconexión', target: 300 }
     ];
 
     const container = document.getElementById('counters-container');
 
-    // Función para cargar datos de localStorage o iniciar en 0
+    // --- Constantes para el cálculo del círculo SVG ---
+    // Radio del círculo (debe coincidir con el 'r' en el HTML de abajo)
+    const radius = 65; 
+    // Circunferencia = 2 * pi * radio
+    const circumference = 2 * Math.PI * radius;
+
+
+    // Funciones de localStorage (igual que antes)
     function getProgress(id) {
         return parseInt(localStorage.getItem('goal_' + id)) || 0;
     }
 
-    // Función para guardar datos
     function saveProgress(id, value) {
         localStorage.setItem('goal_' + id, value);
     }
 
-    // Función para crear las tarjetas en el HTML
+    // --- Nueva función para crear las tarjetas circulares ---
     function renderCounters() {
-        if (!container) return; // Si no existe el contenedor, no hace nada
+        if (!container) return;
         
         container.innerHTML = ''; // Limpiar
         goals.forEach(goal => {
             const current = getProgress(goal.id);
-            const percentage = Math.min((current / goal.target) * 100, 100);
 
             const card = document.createElement('div');
             card.className = 'counter-card';
+
+            // Aquí generamos el SVG. Fíjate en las etiquetas <circle>
             card.innerHTML = `
-                <h3>${goal.title}</h3>
-                <span class="counter-value" id="val-${goal.id}">${current} / ${goal.target}</span>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" id="bar-${goal.id}" style="width: ${percentage}%"></div>
+                <div class="circular-progress-container">
+                    <svg class="progress-ring-svg" width="150" height="150" viewBox="0 0 150 150">
+                        <circle class="progress-ring-circle-bg"
+                            cx="75" cy="75" r="${radius}"></circle>
+                        <circle class="progress-ring-circle" id="circle-${goal.id}"
+                            cx="75" cy="75" r="${radius}"
+                            style="stroke-dasharray: ${circumference}; stroke-dashoffset: ${circumference};">
+                        </circle>
+                    </svg>
+                    <div class="counter-text-content">
+                        <h3>${goal.title}</h3>
+                        <span class="counter-value" id="val-${goal.id}">${current} / ${goal.target}</span>
+                    </div>
                 </div>
             `;
 
-            // Evento de clic para incrementar
+            // Evento clic
             card.addEventListener('click', () => {
                 let count = getProgress(goal.id);
                 if (count < goal.target) {
@@ -97,22 +113,38 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             container.appendChild(card);
+            // Actualizamos la UI inicial para que se pinte el círculo al cargar
+            updateUI(goal.id, current, goal.target);
         });
     }
 
-    // Función para actualizar la interfaz sin recargar todo
+    // --- Nueva función para animar el círculo ---
     function updateUI(id, current, target) {
         const textElement = document.getElementById(`val-${id}`);
-        const barElement = document.getElementById(`bar-${id}`);
+        const circleElement = document.getElementById(`circle-${id}`);
         
         if (textElement) textElement.innerText = `${current} / ${target}`;
-        if (barElement) {
-            const percentage = Math.min((current / target) * 100, 100);
-            barElement.style.width = `${percentage}%`;
+        
+        if (circleElement) {
+            // Calcular el porcentaje (máximo 1, que es el 100%)
+            const progressDecimal = Math.min(current / target, 1);
+            
+            // Calcular el "offset".
+            // Si offset = circunferencia, el círculo está vacío.
+            // Si offset = 0, el círculo está lleno.
+            const offset = circumference - (progressDecimal * circumference);
+            
+            // Aplicar el nuevo offset para que el CSS lo anime
+            circleElement.style.strokeDashoffset = offset;
+
+            // Opcional: Cambiar color al completar (verde al llegar al final)
+            if (current >= target) {
+                 circleElement.style.stroke = '#28a745'; // Verde éxito
+            }
         }
     }
 
-    // Botón de Reinicio
+    // Botón Reset (igual que antes)
     const resetBtn = document.getElementById('reset-btn');
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
@@ -123,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Arrancar los contadores
+    // Arrancar
     renderCounters();
 
 });
