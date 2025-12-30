@@ -37,16 +37,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // === 2. LÓGICA DE LOS CONTADORES CIRCULARES (PROPÓSITOS 2026) ===
     const goals = [
-        { id: 'gym', emoji: '💪', title: 'Gimnasio', target: 200 },
-        { id: 'run', emoji: '🏃', title: 'Correr', target: 50 },
-        { id: 'books', emoji: '📚', title: 'Leer Libros', target: 12 },
-        { id: 'water', emoji: '💧', title: 'Beber Agua', target: 365 },
-        { id: 'meditate', emoji: '🧘', title: 'Meditar', target: 100 },
-        { id: 'code', emoji: '💻', title: 'Programar', target: 150 },
-        { id: 'travel', emoji: '✈️', title: 'Viajar', target: 6 },
-        { id: 'savings', emoji: '💰', title: 'Ahorrar', target: 12 },
-        { id: 'healthy', emoji: '🥗', title: 'Comer Sano', target: 250 },
-        { id: 'digital-detox', emoji: '📵', title: 'Desconexión', target: 300 }
+        { id: 'gym', emoji: '💪', title: 'Pull', target: 75 },
+        { id: 'run', emoji: '🏋️', title: 'Push', target: 75 },
+        { id: 'books', emoji: '📚', title: 'Leer', target: 12 },
+        { id: 'water', emoji: '🏄', title: 'Surf', target: 25 },
+        { id: 'meditate', emoji: '🧘', title: 'Meditar', target: 200 },
+        { id: 'code', emoji: '💻', title: 'Study', target: 150 },
+        { id: 'travel', emoji: '🚴‍♂️', title: 'Bici', target: 50 },
+        { id: 'savings', emoji: '📓', title: 'Diario', target: 365 },
+        { id: 'healthy', emoji: '🍳', title: 'Cocinar', target: 50 },
+        { id: 'digital-detox', emoji: '🤸‍♂️', title: 'Estiramientos', target: 300 }
     ];
 
     const container = document.getElementById('counters-container');
