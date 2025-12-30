@@ -627,7 +627,20 @@ footer {
     margin-top: 10px;
     font-weight: 600;
 }
+/* Color para el progreso extra (Capa superior) */
+.progress-ring-circle-excess {
+    stroke: #ffcc00; /* Amarillo vibrante */
+    stroke-width: 12;
+    fill: none;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.4s ease;
+    filter: drop-shadow(0 0 2px rgba(255, 204, 0, 0.5));
+}
 
+/* Mantenemos el azul para la capa base completada */
+.progress-ring-circle.completed-base {
+    stroke: #007bff !important; /* Azul fijo cuando llega al 100% */
+}
 .progress-bar-fill {
     background-color: var(--accent-color);
     height: 100%;
