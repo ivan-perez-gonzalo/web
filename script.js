@@ -114,5 +114,5 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     renderCounters();
-});
+
 });
