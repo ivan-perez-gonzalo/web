@@ -516,13 +516,86 @@ footer {
     margin: 10px 0;
 }
 
-/* Barra de progreso */
-.progress-bar-bg {
-    background-color: #eee;
-    height: 10px;
-    border-radius: 5px;
+/* =========================================
+   NUEVOS ESTILOS: CONTADORES CIRCULARES SVG
+   ========================================= */
+
+.counter-card {
+    background: var(--card-background);
+    padding: 25px 15px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+    position: relative;
     overflow: hidden;
-    margin-top: 10px;
+}
+
+.counter-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Contenedor del círculo SVG */
+.circular-progress-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px auto; /* Centrado */
+}
+
+/* El SVG en sí */
+.progress-ring-svg {
+    transform: rotate(-90deg); /* Empezar desde arriba */
+    width: 100%;
+    height: 100%;
+}
+
+/* Círculo de fondo (gris) */
+.progress-ring-circle-bg {
+    stroke: #e6e6e6;
+    stroke-width: 12; /* Grosor del anillo */
+    fill: transparent;
+}
+
+/* Círculo de progreso (de color) */
+.progress-ring-circle {
+    stroke: var(--primary-color);
+    stroke-width: 12; /* Grosor del anillo */
+    fill: transparent;
+    stroke-linecap: round; /* Bordes redondeados al final de la línea */
+    transition: stroke-dashoffset 0.5s ease-in-out; /* Animación suave */
+    /* El stroke-dasharray se definirá en JS */
+}
+
+/* Texto dentro del círculo */
+.counter-text-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    padding: 0 10px;
+}
+
+.counter-text-content h3 {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    color: var(--secondary-color);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.counter-value {
+    font-size: 1.4em;
+    font-weight: 800;
+    color: var(--text-color-dark);
+    display: block;
 }
 
 .progress-bar-fill {
