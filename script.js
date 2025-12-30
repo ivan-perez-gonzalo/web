@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     // === 1. LÓGICA DE NAVEGACIÓN Y SCROLL ===
-    
-    // Smooth scrolling para la navegación
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -14,14 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Añadir clase 'active' al enlace de navegación actual
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-links a');
 
     function highlightNavMenu() {
         let current = '';
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - 80; // Ajusta 80px para el header fijo
+            const sectionTop = section.offsetTop - 80;
             if (window.scrollY >= sectionTop) {
                 current = section.getAttribute('id');
             }
@@ -36,35 +33,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     window.addEventListener('scroll', highlightNavMenu);
-    highlightNavMenu(); // Llamar al cargar para resaltar la sección inicial
+    highlightNavMenu();
 
-
-// === 2. LÓGICA DE LOS CONTADORES CIRCULARES (PROPÓSITOS 2026) ===
-
-    // Definición de los 10 propósitos
+    // === 2. LÓGICA DE LOS CONTADORES CIRCULARES (PROPÓSITOS 2026) ===
     const goals = [
-        { id: 'gym', title: '💪 Gimnasio', target: 200 },
-        { id: 'run', title: '🏃 Correr', target: 50 },
-        { id: 'books', title: '📚 Leer Libros', target: 12 },
-        { id: 'water', title: '💧 2L Agua', target: 365 },
-        { id: 'meditate', title: '🧘 Meditar', target: 100 },
-        { id: 'code', title: '💻 Código', target: 150 },
-        { id: 'travel', title: '✈️ Viajes', target: 6 },
-        { id: 'savings', title: '💰 Ahorro', target: 12 },
-        { id: 'healthy', title: '🥗 Comer Sano', target: 250 },
-        { id: 'digital-detox', title: '📵 Desconexión', target: 300 }
+        { id: 'gym', emoji: '💪', title: 'Gimnasio', target: 200 },
+        { id: 'run', emoji: '🏃', title: 'Correr', target: 50 },
+        { id: 'books', emoji: '📚', title: 'Leer Libros', target: 12 },
+        { id: 'water', emoji: '💧', title: 'Beber Agua', target: 365 },
+        { id: 'meditate', emoji: '🧘', title: 'Meditar', target: 100 },
+        { id: 'code', emoji: '💻', title: 'Programar', target: 150 },
+        { id: 'travel', emoji: '✈️', title: 'Viajar', target: 6 },
+        { id: 'savings', emoji: '💰', title: 'Ahorrar', target: 12 },
+        { id: 'healthy', emoji: '🥗', title: 'Comer Sano', target: 250 },
+        { id: 'digital-detox', emoji: '📵', title: 'Desconexión', target: 300 }
     ];
 
     const container = document.getElementById('counters-container');
-
-    // --- Constantes para el cálculo del círculo SVG ---
-    // Radio del círculo (debe coincidir con el 'r' en el HTML de abajo)
-    const radius = 65; 
-    // Circunferencia = 2 * pi * radio
+    
+    // --- CONSTANTES PARA EL CÍRCULO ---
+    // Radio del círculo. Si el viewBox es 150x150, el centro es 75,75.
+    // Un radio de 65 deja 10px de margen total (5px por lado) para el grosor de la línea.
+    const radius = 65;
     const circumference = 2 * Math.PI * radius;
 
-
-    // Funciones de localStorage (igual que antes)
     function getProgress(id) {
         return parseInt(localStorage.getItem('goal_' + id)) || 0;
     }
@@ -73,38 +65,34 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('goal_' + id, value);
     }
 
-    // --- Nueva función para crear las tarjetas circulares ---
     function renderCounters() {
         if (!container) return;
-        
-        container.innerHTML = ''; // Limpiar
+        container.innerHTML = ''; 
         goals.forEach(goal => {
             const current = getProgress(goal.id);
 
             const card = document.createElement('div');
             card.className = 'counter-card';
 
-            // Aquí generamos el SVG. Fíjate en las etiquetas <circle>
-            // Dentro de goals.forEach(goal => { ... })
+            // --- AQUÍ ESTABA EL ERROR DEL UNDEFINED ---
+            // Se ha corregido la estructura HTML interna
             card.innerHTML = `
                 <div class="circular-progress-container">
-                    <svg class="progress-ring-svg" viewBox="0 0 120 120">
-                        <circle class="progress-ring-circle-bg" cx="60" cy="60" r="${radius}"></circle>
-                        <circle class="progress-ring-circle" id="circle-${goal.id}" 
-                                cx="60" cy="60" r="${radius}" 
-                                stroke-dasharray="${circumference}" 
-                                stroke-dashoffset="${circumference}">
+                    <svg class="progress-ring-svg" width="150" height="150" viewBox="0 0 150 150">
+                        <circle class="progress-ring-circle-bg" cx="75" cy="75" r="${radius}"></circle>
+                        <circle class="progress-ring-circle" id="circle-${goal.id}"
+                            cx="75" cy="75" r="${radius}"
+                            style="stroke-dasharray: ${circumference}; stroke-dashoffset: ${circumference};">
                         </circle>
                     </svg>
                     <div class="inner-content">
                         <span class="inner-emoji">${goal.emoji}</span>
-                        <span class="inner-value" id="val-${goal.id}">${current}/${goal.target}</span>
+                        <span class="inner-value" id="val-${goal.id}">${current} / ${goal.target}</span>
                     </div>
                 </div>
-                <h3>${goal.title}</h3> 
+                <h3>${goal.title}</h3>
             `;
 
-            // Evento clic
             card.addEventListener('click', () => {
                 let count = getProgress(goal.id);
                 if (count < goal.target) {
@@ -115,12 +103,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             container.appendChild(card);
-            // Actualizamos la UI inicial para que se pinte el círculo al cargar
-            updateUI(goal.id, current, goal.target);
+            // Pequeño retraso para que la animación se vea al cargar
+            setTimeout(() => updateUI(goal.id, current, goal.target), 50);
         });
     }
 
-    // --- Nueva función para animar el círculo ---
     function updateUI(id, current, target) {
         const textElement = document.getElementById(`val-${id}`);
         const circleElement = document.getElementById(`circle-${id}`);
@@ -128,25 +115,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (textElement) textElement.innerText = `${current} / ${target}`;
         
         if (circleElement) {
-            // Calcular el porcentaje (máximo 1, que es el 100%)
             const progressDecimal = Math.min(current / target, 1);
-            
-            // Calcular el "offset".
-            // Si offset = circunferencia, el círculo está vacío.
-            // Si offset = 0, el círculo está lleno.
             const offset = circumference - (progressDecimal * circumference);
-            
-            // Aplicar el nuevo offset para que el CSS lo anime
             circleElement.style.strokeDashoffset = offset;
 
-            // Opcional: Cambiar color al completar (verde al llegar al final)
+            // Color de éxito
             if (current >= target) {
-                 circleElement.style.stroke = '#28a745'; // Verde éxito
+                 circleElement.style.stroke = '#28a745'; 
+            } else {
+                 circleElement.style.stroke = '#007bff'; // Color original
             }
         }
     }
 
-    // Botón Reset (igual que antes)
     const resetBtn = document.getElementById('reset-btn');
     if (resetBtn) {
         resetBtn.addEventListener('click', () => {
@@ -157,7 +138,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Arrancar
     renderCounters();
-
 });
