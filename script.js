@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('goal_' + id, value);
     }
 
+// --- FUNCIÓN RENDER CORREGIDA CON CAPA EXTRA ---
     function renderCounters() {
         if (!container) return;
         container.innerHTML = ''; 
@@ -74,13 +75,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const card = document.createElement('div');
             card.className = 'counter-card';
 
-            // --- AQUÍ ESTABA EL ERROR DEL UNDEFINED ---
-            // Se ha corregido la estructura HTML interna
             card.innerHTML = `
                 <div class="circular-progress-container">
                     <svg class="progress-ring-svg" width="150" height="150" viewBox="0 0 150 150">
                         <circle class="progress-ring-circle-bg" cx="75" cy="75" r="${radius}"></circle>
-                        <circle class="progress-ring-circle" id="circle-${goal.id}"
+                        
+                        <circle class="progress-ring-circle" id="circle-base-${goal.id}"
+                            cx="75" cy="75" r="${radius}"
+                            style="stroke-dasharray: ${circumference}; stroke-dashoffset: ${circumference};">
+                        </circle>
+
+                        <circle class="progress-ring-circle-excess" id="circle-extra-${goal.id}"
                             cx="75" cy="75" r="${radius}"
                             style="stroke-dasharray: ${circumference}; stroke-dashoffset: ${circumference};">
                         </circle>
@@ -95,35 +100,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
             card.addEventListener('click', () => {
                 let count = getProgress(goal.id);
-                if (count < goal.target) {
-                    count++;
-                    saveProgress(goal.id, count);
-                    updateUI(goal.id, count, goal.target);
-                }
+                // Ahora permitimos que suba sin límite (quitamos el if count < target)
+                count++;
+                saveProgress(goal.id, count);
+                updateUI(goal.id, count, goal.target);
             });
 
             container.appendChild(card);
-            // Pequeño retraso para que la animación se vea al cargar
             setTimeout(() => updateUI(goal.id, current, goal.target), 50);
         });
     }
 
+    // --- FUNCIÓN UPDATE CORREGIDA PARA DOS CAPAS ---
     function updateUI(id, current, target) {
         const textElement = document.getElementById(`val-${id}`);
-        const circleElement = document.getElementById(`circle-${id}`);
+        const baseCircle = document.getElementById(`circle-base-${id}`);
+        const extraCircle = document.getElementById(`circle-extra-${id}`);
         
         if (textElement) textElement.innerText = `${current} / ${target}`;
         
-        if (circleElement) {
-            const progressDecimal = Math.min(current / target, 1);
-            const offset = circumference - (progressDecimal * circumference);
-            circleElement.style.strokeDashoffset = offset;
+        if (baseCircle && extraCircle) {
+            // Lógica para el círculo AZUL (Base)
+            // Si llegamos a 200/200, el azul se queda al 100% (offset 0)
+            const baseProgress = Math.min(current / target, 1);
+            const baseOffset = circumference - (baseProgress * circumference);
+            baseCircle.style.strokeDashoffset = baseOffset;
 
-            // Color de éxito
-            if (current >= target) {
-                 circleElement.style.stroke = '#28a745'; 
+            // Lógica para el círculo AMARILLO (Extra)
+            if (current > target) {
+                // Calculamos cuánto nos hemos pasado (ej: 220 - 200 = 20)
+                const extraAmount = current - target;
+                // Calculamos el porcentaje del extra respecto al total original
+                // Si es 220/200, el extra es 20/200 = 10% amarillo
+                const extraProgress = Math.min(extraAmount / target, 1); 
+                const extraOffset = circumference - (extraProgress * circumference);
+                
+                extraCircle.style.strokeDashoffset = extraOffset;
+                baseCircle.style.stroke = '#007bff'; // Asegurar azul si hay extra
             } else {
-                 circleElement.style.stroke = '#007bff'; // Color original
+                // Si no hay extra, el círculo amarillo está vacío
+                extraCircle.style.strokeDashoffset = circumference;
             }
         }
     }
