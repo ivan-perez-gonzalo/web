@@ -85,21 +85,23 @@ document.addEventListener('DOMContentLoaded', () => {
             card.className = 'counter-card';
 
             // Aquí generamos el SVG. Fíjate en las etiquetas <circle>
+            // Dentro de goals.forEach(goal => { ... })
             card.innerHTML = `
                 <div class="circular-progress-container">
-                    <svg class="progress-ring-svg" width="150" height="150" viewBox="0 0 150 150">
-                        <circle class="progress-ring-circle-bg"
-                            cx="75" cy="75" r="${radius}"></circle>
-                        <circle class="progress-ring-circle" id="circle-${goal.id}"
-                            cx="75" cy="75" r="${radius}"
-                            style="stroke-dasharray: ${circumference}; stroke-dashoffset: ${circumference};">
+                    <svg class="progress-ring-svg" viewBox="0 0 120 120">
+                        <circle class="progress-ring-circle-bg" cx="60" cy="60" r="${radius}"></circle>
+                        <circle class="progress-ring-circle" id="circle-${goal.id}" 
+                                cx="60" cy="60" r="${radius}" 
+                                stroke-dasharray="${circumference}" 
+                                stroke-dashoffset="${circumference}">
                         </circle>
                     </svg>
-                    <div class="counter-text-content">
-                        <h3>${goal.title}</h3>
-                        <span class="counter-value" id="val-${goal.id}">${current} / ${goal.target}</span>
+                    <div class="inner-content">
+                        <span class="inner-emoji">${goal.emoji}</span>
+                        <span class="inner-value" id="val-${goal.id}">${current}/${goal.target}</span>
                     </div>
                 </div>
+                <h3>${goal.title}</h3> 
             `;
 
             // Evento clic
