@@ -3,39 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iván Pérez Gonzalo - Inicio</title>
+    <title>Iván Pérez Gonzalo | Portafolio</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body class="home-page"> <header class="hero full-screen">
-        <div class="hero-content container">
-            <div class="hero-text">
-                <h1>Hola, soy Iván Pérez Gonzalo</h1>
-                <p>Estudiante de Ingeniería en Sistemas Aeroespaciales y de Telecomunicaciones</p>
-                
-                <div class="linktree-buttons">
-                    <a href="sobre-mi.html" class="btn tree-btn">
-                        <i class="fas fa-user"></i> Sobre Mí
-                    </a>
-                    <a href="proyectos.html" class="btn tree-btn">
-                        <i class="fas fa-code"></i> Mis Proyectos
-                    </a>
-                    <a href="propositos.html" class="btn tree-btn">
-                        <i class="fas fa-bullseye"></i> Propósitos 2026
-                    </a>
-                    <a href="contacto.html" class="btn tree-btn">
-                        <i class="fas fa-envelope"></i> Contacto
-                    </a>
+<body>
+
+    <div class="bg-gradient"></div>
+
+    <main class="main-wrapper">
+        <div class="glass-card">
+            <div class="profile-section">
+                <div class="image-container">
+                    <img src="perfil.jpg" alt="Iván Pérez Gonzalo">
+                    <div class="status-badge"></div>
+                </div>
+                <div class="text-content">
+                    <h1>Iván Pérez Gonzalo</h1>
+                    <p class="subtitle">Estudiante de Ingeniería Aeroespacial y Telecomunicaciones</p>
+                    <div class="tags">
+                        <span>Aeroespacial</span>
+                        <span>Telecomunicaciones</span>
+                        <span>Tech Enthusiast</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="hero-image">
-                <img src="fotoweb2.jpg" alt="Foto de Iván Pérez Gonzalo">
-            </div>
-        </div>
-    </header>
+            <nav class="link-tree">
+                <a href="sobre-mi.html" class="link-item">
+                    <div class="icon-box"><i class="fas fa-user"></i></div>
+                    <span>Sobre Mí</span>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </a>
+                <a href="proyectos.html" class="link-item">
+                    <div class="icon-box"><i class="fas fa-rocket"></i></div>
+                    <span>Proyectos</span>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </a>
+                <a href="propositos.html" class="link-item">
+                    <div class="icon-box"><i class="fas fa-chart-line"></i></div>
+                    <span>Propósitos 2026</span>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </a>
+                <a href="contacto.html" class="link-item">
+                    <div class="icon-box"><i class="fas fa-paper-plane"></i></div>
+                    <span>Contacto</span>
+                    <i class="fas fa-chevron-right arrow"></i>
+                </a>
+            </nav>
 
-    <script src="script.js"></script>
+            <footer class="social-footer">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </footer>
+        </div>
+    </main>
+
 </body>
 </html>
