@@ -647,4 +647,46 @@ footer {
     width: 0%; /* Se controla con JS */
     transition: width 0.3s ease;
 }
+    /* Para que el Hero ocupe toda la pantalla */
+.hero.full-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Contenedor de botones estilo Linktree */
+.linktree-buttons {
+    display: flex;
+    flex-direction: column; /* Botones uno debajo del otro */
+    gap: 15px;
+    margin-top: 30px;
+    max-width: 400px; /* Ancho máximo para que no se estiren demasiado */
+}
+
+/* Estilo de los botones del tree */
+.tree-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
+    border: 2px solid white;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 50px; /* Bordes muy redondeados */
+    transition: all 0.3s ease;
+}
+
+.tree-btn i {
+    margin-right: 15px; /* Espacio para el icono */
+}
+
+.tree-btn:hover {
+    background-color: white;
+    color: #007bff; /* El azul de tu fondo */
+    transform: scale(1.05);
+    text-decoration: none;
+}
 }
