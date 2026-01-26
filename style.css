@@ -1,684 +1,195 @@
-/* Importar fuentes de Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@300;400&display=swap');
-
-/* Variables CSS para colores y tamaños */
 :root {
-    --primary-color: #007bff; /* Azul brillante */
-    --secondary-color: #6c757d; /* Gris */
-    --accent-color: #28a745; /* Verde para acentos */
-    --background-dark: #2c3e50; /* Azul oscuro casi negro */
-    --background-light: #f8f9fa; /* Gris muy claro */
-    --text-color-light: #ecf0f1; /* Gris claro para texto sobre fondos oscuros */
-    --text-color-dark: #343a40; /* Gris oscuro para texto sobre fondos claros */
-    --card-background: #ffffff; /* Blanco para tarjetas */
-    --border-radius: 8px;
-    --spacing-lg: 80px;
-    --spacing-md: 40px;
-    --spacing-sm: 20px;
+    --primary: #007bff;
+    --accent: #00d4ff;
+    --glass: rgba(255, 255, 255, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --text: #ffffff;
 }
 
-/* Estilos Generales y Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    font-family: 'Open Sans', sans-serif;
-    line-height: 1.6;
-    color: var(--text-color-dark);
-    background-color: var(--background-light);
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    overflow-x: hidden;
+    background-color: #0a0a0b;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 var(--spacing-sm);
+/* --- Fondo Animado --- */
+.bg-gradient {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    background: linear-gradient(45deg, #0a0a0b, #1a1a2e, #16213e, #0f3460);
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
 }
 
-.section-spacing {
-    padding: var(--spacing-lg) 0;
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-h1, h2, h3 {
-    font-family: 'Montserrat', sans-serif;
-    color: var(--text-color-dark);
-    margin-bottom: var(--spacing-sm);
-}
-
-h1 { font-size: 3em; }
-h2 { font-size: 2.5em; text-align: center; margin-bottom: var(--spacing-md); }
-h3 { font-size: 1.8em; }
-
-p {
-    margin-bottom: 1em;
-}
-
-a {
-    text-decoration: none;
-    color: var(--primary-color);
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* Botones */
-.btn {
-    display: inline-block;
-    padding: 12px 25px;
-    border-radius: var(--border-radius);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
-}
-
-.primary-btn {
-    background-color: var(--primary-color);
-    color: var(--text-color-light);
-    border: 2px solid var(--primary-color);
-}
-
-.primary-btn:hover {
-    background-color: darken(var(--primary-color), 10%); /* No funciona en CSS puro, ver nota */
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
-}
-
-.secondary-btn {
-    background-color: transparent;
-    color: var(--text-color-light);
-    border: 2px solid var(--text-color-light);
-    margin-left: var(--spacing-sm);
-}
-
-.secondary-btn:hover {
-    background-color: var(--text-color-light);
-    color: var(--primary-color);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
-}
-
-.small-btn {
-    padding: 8px 15px;
-    font-size: 0.9em;
-    margin-right: 10px;
-    border: 1px solid var(--primary-color);
-    color: var(--primary-color);
-    background-color: transparent;
-}
-.small-btn:hover {
-    background-color: var(--primary-color);
-    color: var(--text-color-light);
-    transform: translateY(-2px);
-    box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
-}
-
-.github-btn {
-    border-color: var(--secondary-color);
-    color: var(--secondary-color);
-}
-.github-btn:hover {
-    background-color: var(--secondary-color);
-    color: var(--text-color-light);
-}
-
-/* Header / Hero Section */
-/* --- Ajustes de Flexibilidad para el Contenedor --- */
-.hero-content {
-    display: flex;
-    flex-direction: column; /* Por defecto: uno debajo de otro (móvil) */
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    gap: 30px;
-    padding: 20px;
-    width: 100%;
-}
-
-/* --- Los Botones: Que no se estiren al infinito --- */
-.linktree-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    width: 100%;
-    max-width: 350px; /* Evita que en PC el botón ocupe toda la pantalla */
-    margin: 30px auto 0; /* Centrado */
-}
-
-/* --- 🖥️ MAGIA PARA PC Y MÓVIL HORIZONTAL --- */
-/* Cuando la pantalla sea más ancha de 768px */
-@media (min-width: 768px) {
-    .hero-content {
-        flex-direction: row-reverse; /* Foto a la derecha, texto a la izquierda */
-        text-align: left;
-        justify-content: space-between;
-    }
-
-    .hero-text {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start; /* Alinea texto a la izquierda en PC */
-    }
-
-    .linktree-buttons {
-        margin: 30px 0 0 0; /* Alinea botones a la izquierda en PC */
-    }
-
-    .hero-image {
-        flex: 0 0 400px; /* Tamaño fijo para la foto en PC */
-    }
-}
-
-/* --- 📱 AJUSTE PARA MÓVIL HORIZONTAL (Pantallas bajas) --- */
-@media (max-height: 500px) and (orientation: landscape) {
-    .hero.full-screen {
-        height: auto; /* Evita que el contenido se corte si hay poca altura */
-        padding: 50px 0;
-    }
-    
-    .hero-image img {
-        width: 150px; /* Foto más pequeña para que quepa todo */
-        height: 150px;
-    }
-}
-
-@keyframes pulse {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.03); }
-}
-
-
-/* Navbar */
-.navbar {
-    background-color: rgba(0, 0, 0, 0.2); /* Fondo semitransparente */
-    padding: var(--spacing-sm) 0;
-    position: absolute; /* Para que esté por encima de la sección hero */
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-.navbar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.navbar .logo {
-    color: var(--text-color-light);
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 1.8em;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.navbar .logo:hover {
-    color: var(--accent-color);
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-}
-
-.nav-links li {
-    margin-left: var(--spacing-md);
-}
-
-.nav-links a {
-    color: var(--text-color-light);
-    font-weight: 400;
-    font-size: 1.1em;
-    padding: 5px 0;
-    position: relative;
-    transition: color 0.3s ease;
-}
-
-.nav-links a::after { /* Subrayado animado */
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -5px;
-    width: 0;
-    height: 2px;
-    background-color: var(--accent-color);
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after,
-.nav-links a.active::after {
-    width: 100%;
-}
-.nav-links a:hover {
-    color: var(--accent-color);
-}
-
-/* Sobre Mí */
-.about-section {
-    background-color: var(--card-background);
-    text-align: center;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-    border-radius: var(--border-radius);
-    margin-top: -80px; /* Para que se superponga un poco con el hero */
-    position: relative;
-    z-index: 1;
-    padding-top: var(--spacing-lg);
-    padding-bottom: var(--spacing-lg);
-}
-
-/* Proyectos */
-.projects-section {
-    background-color: var(--background-light);
-}
-
-.project-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-md);
-}
-
-.project-card {
-    background-color: var(--card-background);
-    border-radius: var(--border-radius);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
-}
-
-.project-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
-
-.project-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.project-card h3 {
-    margin: var(--spacing-sm) var(--spacing-sm) 0;
-    color: var(--primary-color);
-}
-
-.project-card p {
-    padding: 0 var(--spacing-sm);
-    flex-grow: 1; /* Para que ocupe el espacio restante */
-}
-
-.project-links {
-    padding: var(--spacing-sm);
-    display: flex;
-    gap: 10px;
-    justify-content: flex-start;
-    border-top: 1px solid #eee;
-    margin-top: var(--spacing-sm);
-}
-.project-links .btn {
-    margin: 0; /* Eliminar el margen extra de los botones */
-}
-
-/* Habilidades */
-.skills-section {
-    background-color: var(--background-dark);
-    color: var(--text-color-light);
-    text-align: center;
-}
-
-.skills-section h2 {
-    color: var(--text-color-light);
-}
-
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-md);
-}
-
-.skill-item {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: var(--border-radius);
-    padding: var(--spacing-sm);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.skill-item:hover {
-    background-color: var(--primary-color);
-    transform: translateY(-5px);
-}
-
-.skill-item i {
-    font-size: 3em;
-    color: var(--accent-color);
-}
-.skill-item span {
-    font-weight: bold;
-    font-size: 1.1em;
-}
-
-/* Contacto */
-.contact-section {
-    background-color: var(--card-background);
-    text-align: center;
-    box-shadow: 0 -5px 20px rgba(0,0,0,0.03);
-}
-
-.contact-links {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-md);
-}
-
-.contact-item {
-    display: inline-flex;
-    align-items: center;
-    background-color: var(--background-light);
-    padding: 10px 20px;
-    border-radius: var(--border-radius);
-    color: var(--text-color-dark);
-    border: 1px solid #ddd;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.contact-item:hover {
-    background-color: var(--primary-color);
-    color: var(--text-color-light);
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.2);
-    text-decoration: none;
-}
-
-.contact-item i {
-    margin-right: 10px;
-    font-size: 1.2em;
-}
-
-/* Footer */
-footer {
-    background-color: var(--background-dark);
-    color: var(--text-color-light);
-    text-align: center;
-    padding: var(--spacing-sm) 0;
-    font-size: 0.9em;
-}
-
-/* Media Queries para Responsive Design */
-@media (max-width: 768px) {
-    .hero-content {
-        flex-direction: column;
-        text-align: center;
-    }
-    .hero-text {
-        padding-right: 0;
-        text-align: center;
-    }
-    .hero-image {
-        margin-top: var(--spacing-md);
-        width: 250px;
-        height: 250px;
-        flex: none;
-    }
-    .hero-text h1 {
-        font-size: 2.5em;
-    }
-    .hero-text p {
-        font-size: 1.1em;
-    }
-
-    .nav-links {
-        display: none; /* Podrías implementar un menú hamburguesa aquí */
-    }
-    .navbar .container {
-        justify-content: center;
-    }
-
-    .btn {
-        width: 100%;
-        margin-bottom: var(--spacing-sm);
-    }
-    .secondary-btn {
-        margin-left: 0;
-    }
-
-    .project-grid, .skills-grid, .contact-links {
-        grid-template-columns: 1fr;
-    }
-
-    h2 { font-size: 2em; }
-}
-
-@media (max-width: 480px) {
-    .container {
-        padding: 0 var(--spacing-sm);
-    }
-    h1 { font-size: 2em; }
-    h2 { font-size: 1.8em; }
-    .hero-image {
-        width: 200px;
-        height: 200px;
-    }
-    .hero-text p {
-        font-size: 1em;
-    }
-    /* Estilos para los Contadores de Propósitos */
-.counter-card {
-    background: var(--card-background);
-    padding: 20px;
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    text-align: center;
-    cursor: pointer;
-    transition: transform 0.2s, background-color 0.2s;
-    user-select: none; /* Evita que se seleccione el texto al hacer muchos clics */
-}
-
-.counter-card:hover {
-    transform: scale(1.05);
-    background-color: #f0f7ff;
-}
-
-.counter-card h3 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    color: var(--background-dark);
-}
-
-.counter-value {
-    font-size: 2em;
-    font-weight: bold;
-    color: var(--primary-color);
-    display: block;
-    margin: 10px 0;
-}
-
-/* =========================================
-   DISEÑO PREMIUM: CONTADORES CIRCULARES 
-   ========================================= */
-
-#counters-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 25px;
-    margin-top: 30px;
-}
-
-.counter-card {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    text-align: center;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border: 1px solid #f0f0f0;
-}
-
-.counter-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 35px rgba(0, 123, 255, 0.15);
-    border-color: #007bff;
-}
-
-/* Contenedor del Círculo */
-.circular-progress-container {
-    position: relative;
-    width: 150px; /* Ajustado para que coincida con el SVG */
-    height: 150px;
-    margin: 0 auto 15px;
-    /* IMPORTANTE: Quitamos el overflow hidden para que no se corte nada */
-    overflow: visible; 
-}
-
-/* El SVG en sí */
-.progress-ring-svg {
-    transform: rotate(-90deg); /* Empezar desde arriba */
-    width: 100%;
-    height: 100%;
-    /* Aseguramos que el SVG ocupe todo el espacio sin cortarse */
-    display: block; 
-}
-
-/* Y para que el grid se adapte mejor y solucione el problema del PC */
-.project-grid {
-    display: grid;
-    /* Usamos minmax con un tamaño más pequeño para que quepan más columnas */
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: var(--spacing-md);
-    margin-top: var(--spacing-md);
-    /* Centrar el grid si hay pocas tarjetas */
-    justify-content: center;
-}
-
-.progress-ring-circle-bg {
-    stroke: #eeeeee !important; /* Gris muy claro */
-    stroke-width: 10;
-    fill: none !important;      /* IMPORTANTE: Evita el círculo negro */
-}
-
-.progress-ring-circle {
-    stroke: #007bff !important; /* Azul eléctrico */
-    stroke-width: 10;
-    fill: none !important;      /* IMPORTANTE: Evita el círculo negro */
-    stroke-linecap: round;
-    transition: stroke-dashoffset 0.4s ease;
-}
-
-/* Contenido centrado dentro del círculo */
-.inner-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centrado vertical */
-    align-items: center;     /* Centrado horizontal */
-    pointer-events: none;    /* Para que el clic pase a la tarjeta */
-}
-
-.inner-emoji {
-    font-size: 1.8rem; /* Tamaño del emoji */
-    line-height: 1;
-    margin-bottom: 2px;
-}
-
-.inner-value {
-    font-size: 0.85rem; /* Tamaño de los números (1/200) */
-    font-weight: 700;
-    color: #444;       /* Gris oscuro para legibilidad */
-    font-family: 'Montserrat', sans-serif;
-}
-
-/* Opcional: un efecto de "completado" */
-.counter-card.completed .inner-value {
-    color: #28a745; /* Cambia a verde al terminar */
-}
-
-/* Título fuera del círculo */
-.counter-card h3 {
-    font-size: 1rem;
-    color: #555;
-    margin-top: 10px;
-    font-weight: 600;
-}
-/* Color para el progreso extra (Capa superior) */
-.progress-ring-circle-excess {
-    stroke: #ffcc00; /* Amarillo vibrante */
-    stroke-width: 12;
-    fill: none;
-    stroke-linecap: round;
-    transition: stroke-dashoffset 0.4s ease;
-    filter: drop-shadow(0 0 2px rgba(255, 204, 0, 0.5));
-}
-
-/* Mantenemos el azul para la capa base completada */
-.progress-ring-circle.completed-base {
-    stroke: #007bff !important; /* Azul fijo cuando llega al 100% */
-}
-.progress-bar-fill {
-    background-color: var(--accent-color);
-    height: 100%;
-    width: 0%; /* Se controla con JS */
-    transition: width 0.3s ease;
-}
-    /* Para que el Hero ocupe toda la pantalla */
-.hero.full-screen {
+/* --- Contenedor Principal --- */
+.main-wrapper {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 20px;
 }
 
-/* Contenedor de botones estilo Linktree */
-.linktree-buttons {
+/* --- Tarjeta de Cristal --- */
+.glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 40px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+/* --- Perfil --- */
+.image-container {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    margin: 0 auto 20px;
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+}
+
+.status-badge {
+    position: absolute;
+    bottom: 8px; right: 8px;
+    width: 18px; height: 18px;
+    background: #00ff88;
+    border-radius: 50%;
+    border: 3px solid #1a1a2e;
+}
+
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    margin-bottom: 15px;
+}
+
+.tags {
     display: flex;
-    flex-direction: column; /* Botones uno debajo del otro */
-    gap: 15px;
-    margin-top: 30px;
-    max-width: 400px; /* Ancho máximo para que no se estiren demasiado */
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 30px;
 }
 
-/* Estilo de los botones del tree */
-.tree-btn {
+.tags span {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.1);
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+}
+
+/* --- Enlaces estilo Linktree Pro --- */
+.link-tree {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.link-item {
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 15px 20px;
-    background-color: rgba(255, 255, 255, 0.1); /* Fondo semi-transparente */
-    border: 2px solid white;
+    padding: 14px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    text-decoration: none;
     color: white;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 50px; /* Bordes muy redondeados */
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.tree-btn i {
-    margin-right: 15px; /* Espacio para el icono */
+.link-item:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateX(8px);
+    border-color: var(--accent);
 }
 
-.tree-btn:hover {
-    background-color: white;
-    color: #007bff; /* El azul de tu fondo */
-    transform: scale(1.05);
-    text-decoration: none;
+.icon-box {
+    width: 35px;
+    font-size: 1.2rem;
+    color: var(--accent);
 }
+
+.link-item span {
+    flex: 1;
+    text-align: left;
+    font-weight: 500;
+}
+
+.arrow {
+    font-size: 0.8rem;
+    opacity: 0.4;
+    transition: 0.3s;
+}
+
+.link-item:hover .arrow {
+    opacity: 1;
+    transform: translateX(4px);
+}
+
+/* --- Footer --- */
+.social-footer {
+    margin-top: 35px;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.social-footer a {
+    color: white;
+    font-size: 1.4rem;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+.social-footer a:hover {
+    opacity: 1;
+    color: var(--accent);
+    transform: translateY(-3px);
+}
+
+/* --- Responsividad para PC --- */
+@media (min-width: 800px) {
+    .glass-card {
+        max-width: 850px;
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 50px;
+        text-align: left;
+        align-items: center;
+    }
+
+    .tags { justify-content: flex-start; }
+    .image-container { margin: 0 0 20px 0; }
+    .social-footer { justify-content: flex-start; }
 }
