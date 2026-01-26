@@ -3,100 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre Mí - Iván Pérez</title>
+    <title>Sobre Mí | Iván Pérez</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Montserrat:wght@400;600;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body class="bg-dots"> <nav class="top-nav">
-        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Volver al Inicio</a>
-    </nav>
+<body>
 
-    <main class="about-container">
-        
-        <header class="about-header">
-            <span class="tag">Mi Historia</span>
-            <h1>Más allá del <span class="highlight">Código</span></h1>
-        </header>
+    <div class="bg-gradient"></div>
 
-        <div class="bento-grid">
+    <a href="index.html" class="back-btn-glass">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <main class="main-wrapper">
+        <div class="glass-dashboard">
             
-            <div class="card intro-card">
-                <h2>Hola, soy Iván.</h2>
-                <p>
-                    No soy solo un estudiante de ingeniería; soy una mente curiosa obsesionada con entender cómo funcionan las cosas para luego mejorarlas. 
-                    <br><br>
-                    Mi viaje comenzó desmontando juguetes para ver sus circuitos y ha evolucionado hasta diseñar sistemas aeroespaciales y de telecomunicaciones. 
-                    Me define la <strong>perseverancia</strong> y la búsqueda constante de la <strong>innovación</strong>.
-                </p>
-            </div>
+            <aside class="dashboard-sidebar">
+                <div class="profile-highlight">
+                    <div class="image-container-large">
+                        <img src="perfil.jpg" alt="Iván Pérez">
+                        <div class="status-indicator pulsate"></div>
+                    </div>
+                    <h2>Iván Pérez</h2>
+                    <p class="role-tag">Ingeniería Aeroespacial & Teleco</p>
+                    
+                    <div class="quick-stats">
+                        <div class="stat">
+                            <span class="num">21</span>
+                            <span class="label">Edad</span>
+                        </div>
+                        <div class="stat">
+                            <span class="num">ES</span>
+                            <span class="label">Ubicación</span>
+                        </div>
+                    </div>
 
-            <div class="card photo-card">
-                <img src="perfil.jpg" alt="Iván trabajando"> 
-            </div>
-
-            <div class="card stats-card">
-                <h3>En Cifras</h3>
-                <div class="stat-item">
-                    <span class="number">21</span>
-                    <span class="label">Años</span>
+                    <div class="social-row">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="mailto:tu@email.com"><i class="fas fa-envelope"></i></a>
+                    </div>
                 </div>
-                <div class="stat-item">
-                    <span class="number">3+</span>
-                    <span class="label">Años Programando</span>
-                </div>
-                <div class="stat-item">
-                    <span class="number">100%</span>
-                    <span class="label">Compromiso</span>
-                </div>
-            </div>
+            </aside>
 
-            <div class="card education-card">
-                <h3><i class="fas fa-graduation-cap"></i> Formación</h3>
-                <ul class="timeline-list">
-                    <li>
-                        <strong>Grado en Ingeniería Aeroespacial</strong>
-                        <span>Universidad Politécnica (Actualidad)</span>
-                    </li>
-                    <li>
-                        <strong>Ingeniería de Telecomunicaciones</strong>
-                        <span>Especialización en Sistemas</span>
-                    </li>
-                    <li>
-                        <strong>Desarrollo Full Stack</strong>
-                        <span>Aprendizaje Autodidacta</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="card skills-card">
-                <h3>Lo que aporto</h3>
-                <div class="tags-cloud">
-                    <span>💡 Resolución de Problemas</span>
-                    <span>🤝 Trabajo en Equipo</span>
-                    <span>🚀 Liderazgo</span>
-                    <span>🧠 Pensamiento Crítico</span>
-                    <span>🇬🇧 Inglés Avanzado</span>
+            <section class="dashboard-content">
+                
+                <div class="content-block">
+                    <h3><i class="fas fa-user-astronaut"></i> Mi Misión</h3>
+                    <p>
+                        Soy un apasionado de la tecnología con una visión clara: <strong>conectar el cielo con la tierra</strong>. 
+                        Estudio la doble vertiente de los sistemas aeroespaciales y las telecomunicaciones porque creo que el futuro está en la integración de ambos mundos.
+                    </p>
+                    <p>
+                        No me conformo con la teoría; me mueve la curiosidad de desmontar, programar y volver a montar sistemas complejos para entender su alma.
+                    </p>
                 </div>
-            </div>
 
-            <div class="card hobbies-card">
-                <h3>Fuera de la oficina</h3>
-                <div class="hobby-icons">
-                    <div class="hobby"><i class="fas fa-dumbbell"></i> <span>Gym</span></div>
-                    <div class="hobby"><i class="fas fa-running"></i> <span>Running</span></div>
-                    <div class="hobby"><i class="fas fa-book"></i> <span>Lectura</span></div>
-                    <div class="hobby"><i class="fas fa-plane"></i> <span>Aviación</span></div>
+                <div class="content-block">
+                    <h3><i class="fas fa-graduation-cap"></i> Trayectoria</h3>
+                    <div class="glass-timeline">
+                        <div class="timeline-item">
+                            <span class="date">Actualidad</span>
+                            <h4>Ingeniería Aeroespacial</h4>
+                            <p>Universidad Politécnica</p>
+                        </div>
+                        <div class="timeline-item">
+                            <span class="date">En curso</span>
+                            <h4>Ingeniería de Telecomunicaciones</h4>
+                            <p>Especialización en Sistemas</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
 
+                <div class="content-block">
+                    <h3><i class="fas fa-code"></i> Arsenal Tecnológico</h3>
+                    <div class="tech-grid">
+                        <span class="tech-badge"><i class="fab fa-python"></i> Python</span>
+                        <span class="tech-badge"><i class="fab fa-js"></i> JavaScript</span>
+                        <span class="tech-badge"><i class="fas fa-database"></i> SQL</span>
+                        <span class="tech-badge"><i class="fas fa-satellite"></i> SatComs</span>
+                        <span class="tech-badge"><i class="fab fa-html5"></i> HTML/CSS</span>
+                        <span class="tech-badge"><i class="fab fa-react"></i> React</span>
+                    </div>
+                </div>
+
+            </section>
         </div>
-
-        <div class="about-footer">
-            <p>¿Te gusta lo que ves?</p>
-            <a href="contacto.html" class="btn-primary">Trabajemos Juntos</a>
-        </div>
-
     </main>
 
 </body>
