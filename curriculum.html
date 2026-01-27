@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV | Iván Pérez</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Montserrat:wght@600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* --- VARIABLES --- */
+        :root {
+            --primary: #007bff;     /* Azul Web */
+            --dark-text: #2c3e50;   /* Texto oscuro para el papel */
+            --light-text: #636e72;  /* Texto gris para detalles */
+            --paper-bg: #ffffff;    /* Color del papel */
+            --accent: #00d4ff;      /* Acentos del fondo */
+            --bg-dark: #0a0a0b;     /* Fondo de la web */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--dark-text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- FONDO ANIMADO (El mismo de siempre) --- */
+        .bg-gradient {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0a0a0b, #121225, #1a1a3a, #0f2045);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Botón Volver */
+        .back-btn-glass {
+            position: fixed;
+            top: 30px; left: 30px;
+            width: 50px; height: 50px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none;
+            transition: all 0.3s ease; z-index: 100;
+        }
+        .back-btn-glass:hover { background: rgba(255, 255, 255, 0.2); transform: scale(1.1); }
+
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .cv-wrapper {
+            display: flex;
+            justify-content: center;
+            padding: 80px 20px;
+            min-height: 100vh;
+        }
+
+        /* --- EL PAPEL FLOTANTE --- */
+        .floating-paper {
+            background: var(--paper-bg);
+            width: 100%;
+            max-width: 850px; /* Ancho A4 aproximado en pantalla */
+            border-radius: 8px; /* Bordes poco redondeados, como papel */
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5); /* Sombra para elevarlo */
+            position: relative;
+            overflow: hidden;
+            animation: floatPaper 6s ease-in-out infinite; /* Sutil movimiento */
+        }
+
+        /* Animación suave de flotación */
+        @keyframes floatPaper {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Decoración superior del papel */
+        .paper-header-strip {
+            height: 10px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            width: 100%;
+        }
+
+        .cv-content {
+            padding: 50px;
+        }
+
+        /* --- CABECERA DEL CV --- */
+        .cv-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        .cv-title h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            color: var(--dark-text);
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            margin-bottom: 5px;
+        }
+
+        .cv-title h2 {
+            font-size: 1rem;
+            color: var(--primary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .cv-contact-info {
+            text-align: right;
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        .cv-contact-info div { margin-bottom: 5px; }
+        .cv-contact-info i { color: var(--primary); width: 20px; text-align: center; }
+
+        /* Botón de Descarga */
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 8px 16px;
+            background: var(--dark-text);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .download-btn:hover { background: var(--primary); transform: translateY(-2px); }
+
+        /* --- SECCIONES --- */
+        .cv-section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            color: var(--dark-text);
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* Experiencia y Educación */
+        .experience-item {
+            margin-bottom: 25px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .experience-item::before {
+            content: '';
+            position: absolute; left: 0; top: 8px;
+            width: 8px; height: 8px;
+            background: var(--light-text);
+            border-radius: 50%;
+        }
+
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .job-title { font-weight: 700; color: var(--dark-text); font-size: 1.1rem; }
+        .job-date { font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--primary); background: #f0f7ff; padding: 2px 8px; border-radius: 4px; }
+        
+        .job-company { font-weight: 600; color: var(--light-text); font-size: 0.95rem; margin-bottom: 8px; display: block; }
+        
+        .job-desc {
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        /* Grid de Habilidades */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .skill-bar-container { margin-bottom: 15px; }
+        
+        .skill-info {
+            display: flex; justify-content: space-between;
+            margin-bottom: 5px; font-size: 0.9rem; font-weight: 600;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        /* Idiomas */
+        .languages-list {
+            display: flex; gap: 30px;
+        }
+        .lang-item strong { display: block; color: var(--dark-text); }
+        .lang-item span { color: var(--light-text); font-size: 0.9rem; }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .cv-header { flex-direction: column; gap: 20px; }
+            .cv-contact-info { text-align: left; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .cv-content { padding: 30px; }
+            .cv-title h1 { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-gradient"></div>
+
+    <a href="index.html" class="back-btn-glass">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+
+    <div class="cv-wrapper">
+        
+        <article class="floating-paper">
+            <div class="paper-header-strip"></div>
+            
+            <div class="cv-content">
+                
+                <header class="cv-header">
+                    <div class="cv-title">
+                        <h1>Iván Pérez</h1>
+                        <h2>Ingeniero Aeroespacial & Telecomunicaciones</h2>
+                        <a href="Iván_Pérez_Gonzalo_cv.pdf" class="download-btn" onclick="alert('Aquí iría el enlace a tu PDF real.')">
+                            <i class="fas fa-download"></i> Descargar PDF
+                        </a>
+                    </div>
+                    
+                    <div class="cv-contact-info">
+                        <div>tu-email@ejemplo.com <i class="fas fa-envelope"></i></div>
+                        <div>+34 600 000 000 <i class="fas fa-phone"></i></div>
+                        <div>linkedin.com/in/ivanperez <i class="fab fa-linkedin"></i></div>
+                        <div>github.com/ivanperez <i class="fab fa-github"></i></div>
+                        <div>Madrid, España <i class="fas fa-map-marker-alt"></i></div>
+                    </div>
+                </header>
+
+                <section class="cv-section">
+                    <h3 class="section-title">Perfil Profesional</h3>
+                    <p class="job-desc">
+                        Estudiante de doble ingeniería con sólida base en física, matemáticas y programación. Apasionado por la integración de sistemas de hardware y software en el ámbito aeroespacial. Busco oportunidades para aplicar mis conocimientos en desarrollo de satélites, sistemas embebidos y telecomunicaciones.
+                    </p>
+                </section>
+
+                <section class="cv-section">
+                    <h3 class="section-title">Formación Académica</h3>
+                    
+                    <div class="experience-item">
+                        <div class="job-header">
+                            <span class="job-title">Grado en Ingeniería Aeroespacial</span>
+                            <span class="job-date">2021 - Presente</span>
+                        </div>
+                        <span class="job-company">Universidad Politécnica de [Tu Ciudad]</span>
+                        <p class="job-desc">Especialización en Vehículos Aeroespaciales. Nota media actual: 8.5/10.</p>
+                    </div>
+
+                    <div class="experience-item">
+                        <div class="job-header">
+                            <span class="job-title">Grado en Ingeniería de Telecomunicaciones</span>
+                            <span class="job-date">2022 - Presente</span>
+                        </div>
+                        <span class="job-company">Universidad Politécnica de [Tu Ciudad]</span>
+                        <p class="job-desc">Cursando simultáneamente. Enfoque en tratamiento de señal y sistemas telemáticos.</p>
+                    </div>
+                </section>
+
+                <section class="cv-section">
+                    <h3 class="section-title">Proyectos Relevantes</h3>
+                    
+                    <div class="experience-item">
+                        <div class="job-header">
+                            <span class="job-title">Rastreador Satelital ISS</span>
+                            <span class="job-date">2024</span>
+                        </div>
+                        <p class="job-desc">Desarrollo de una aplicación web (React + Python) para predecir pasos visibles de la Estación Espacial Internacional.</p>
+                    </div>
+                    
+                    <div class="experience-item">
+                        <div class="job-header">
+                            <span class="job-title">Controlador de Vuelo Drone</span>
+                            <span class="job-date">2023</span>
+                        </div>
+                        <p class="job-desc">Programación en C++ de un controlador PID para estabilización de quadcopter sobre microcontrolador STM32.</p>
+                    </div>
+                </section>
+
+                <section class="cv-section">
+                    <h3 class="section-title">Habilidades Técnicas</h3>
+                    <div class="skills-grid">
+                        
+                        <div class="skill-bar-container">
+                            <div class="skill-info"><span>Python (Data & Scripting)</span> <span>90%</span></div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 90%"></div></div>
+                        </div>
+
+                        <div class="skill-bar-container">
+                            <div class="skill-info"><span>C++ / Arduino</span> <span>80%</span></div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 80%"></div></div>
+                        </div>
+
+                        <div class="skill-bar-container">
+                            <div class="skill-info"><span>Matlab / Simulink</span> <span>75%</span></div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 75%"></div></div>
+                        </div>
+
+                        <div class="skill-bar-container">
+                            <div class="skill-info"><span>Desarrollo Web (HTML/JS)</span> <span>70%</span></div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 70%"></div></div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <section class="cv-section" style="margin-bottom: 0;">
+                    <h3 class="section-title">Idiomas</h3>
+                    <div class="languages-list">
+                        <div class="lang-item">
+                            <strong>Español</strong>
+                            <span>Nativo</span>
+                        </div>
+                        <div class="lang-item">
+                            <strong>Inglés</strong>
+                            <span>C1 - Avanzado (Cambridge)</span>
+                        </div>
+                        <div class="lang-item">
+                            <strong>Francés</strong>
+                            <span>A2 - Básico</span>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </article>
+    </div>
+
+</body>
+</html>
