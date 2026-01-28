@@ -278,4 +278,28 @@ h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; }
     transform: translateZ(20px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Sombra propia para dar altura */
 }
+/* --- CONFIGURACIÓN 3D PARA LINKTREE --- */
 
+/* 1. Eliminar el brillo definitivamente (como pediste) */
+.glare { display: none !important; }
+
+/* 2. Profundidad para los elementos dentro del Linktree */
+.link-item.tilt-card {
+    transform-style: preserve-3d; /* Permite 3D */
+    /* Pequeña corrección para que no choquen con el margen */
+    margin-bottom: 15px; 
+}
+
+/* Hacemos que el ICONO, el TEXTO y la FLECHA floten */
+.link-item.tilt-card .icon-box,
+.link-item.tilt-card span,
+.link-item.tilt-card .arrow {
+    transform: translateZ(20px); /* Se separan 20px hacia afuera */
+    /* Sombre pequeña para dar sensación de levitación */
+    text-shadow: 0 5px 10px rgba(0,0,0,0.3); 
+}
+
+/* Opcional: Que el icono flote un poco más que el texto */
+.link-item.tilt-card .icon-box {
+    transform: translateZ(30px);
+}
